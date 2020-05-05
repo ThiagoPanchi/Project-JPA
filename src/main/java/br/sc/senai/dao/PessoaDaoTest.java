@@ -1,14 +1,13 @@
 package br.sc.senai.dao;
 
+import br.sc.senai.model.Pessoa;
 import br.sc.senai.model.User;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class UserDaoTest {
-
+public class PessoaDaoTest {
     private static EntityManagerFactory factory;
     private static EntityManager entityManager;
 
@@ -18,19 +17,19 @@ public class UserDaoTest {
 
         entityManager = factory.createEntityManager();
 
-        //insert();
-        update();
+        insert();
+        //update();
+        //delete();
     }
-
     public static void insert() {
         entityManager.getTransaction().begin();
 
-        User newUser = new User();
-        newUser.setEmail("ateste@gmail.com");
-        newUser.setFullname("teste testinho");
-        newUser.setPassword("senhasecreta");
+        Pessoa newPessoa = new Pessoa();
+        newPessoa.setName("Thiago");
+        newPessoa.setLastname("Panchiniak");
+        newPessoa.setCpf(2890);
 
-        entityManager.persist(newUser);
+        entityManager.persist(newPessoa);
 
         entityManager.getTransaction().commit();
 
@@ -40,12 +39,12 @@ public class UserDaoTest {
 
     public static void update() {
         entityManager.getTransaction().begin();
-        User updateUser = entityManager.find(User.class, 1);
+        Pessoa updatePessoa = entityManager.find(Pessoa.class, 1);
 
         //System.out.println(updateUser.getFullname());
 
-        updateUser.setFullname("Teste Dois da Silva");
-        updateUser.setEmail("testedois@gmail.com");
+        updatePessoa.setName("Teste Dois da Silva");
+
         //entityManager.merge(updateUser);
 
         entityManager.getTransaction().commit();
@@ -55,8 +54,8 @@ public class UserDaoTest {
 
     public static void delete() {
         entityManager.getTransaction().begin();
-        User removeUser = entityManager.find(User.class, 1);
-        entityManager.remove(removeUser);
+        Pessoa removePessoa = entityManager.find(Pessoa.class, 1);
+        entityManager.remove(removePessoa);
         entityManager.getTransaction().commit();
         entityManager.close();
         factory.close();
